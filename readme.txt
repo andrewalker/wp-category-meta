@@ -6,13 +6,16 @@ Requires at least: 2.6
 Tested up to: 2.6.5
 Stable tag: trunk
 
-Add the ability to attach meta to the wordperess categories.
+Add the ability to attach meta to the wordpress categories.
 
 == Description ==
 
 This plugins add meta to the wordpress categories.
+
 It Creates a wp-termsmeta table to store the entered meta.
+
 It adds input fields to the category administration interface to enter the meta values.
+
 It provides functions to retrive / create / update / delte the category meta.
 
 == Installation ==
