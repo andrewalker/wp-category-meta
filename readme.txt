@@ -16,7 +16,7 @@ It Creates a wp-termsmeta table to store the entered meta.
 
 It adds input fields to the category administration interface to enter the meta values.
 
-It provides functions to retrive / create / update / delte the category meta.
+It provides functions to retrive / create / update / delete the category meta.
 
 == Installation ==
 
