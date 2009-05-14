@@ -32,20 +32,14 @@ the top-level folder. Don't just upload all the php files and put them in `/wp-c
 5. That's it!
 
 6. you can use the folowing functions into your templates to retreive 1 meta:
-<?php
-if (function_exists('get_terms_meta'))
-{
-    $metaValue = get_terms_meta($category_id, $meta_key);
-}
-?>
+`<?php if (function_exists('get_terms_meta'))`
+`{ $metaValue = get_terms_meta($category_id, $meta_key); }`
+`?>`
 
 7. you can use the folowing functions into your templates to retreive all meta:
-<?php
-if (function_exists('get_all_terms_meta'))
-{
-    $metaList = get_all_terms_meta($category_id);
-}
-?>
+`<?php if (function_exists('get_all_terms_meta'))`
+`{ $metaList = get_all_terms_meta($category_id); }`
+`?>`
 
 == Frequently Asked Questions ==
 
