@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.0.1\n"
+"Project-Id-Version: 1.0.0\n"
 "POT-Creation-Date: 2009-03-19\n"
-"PO-Revision-Date: 2009-03-19 10:37+0100\n"
+"PO-Revision-Date: 2009-10-20 16:38+0100\n"
 "Last-Translator: Eric Le Bail <eric_lebail@hotmail.com>\n"
 "Language-Team: en_US\n"
 "MIME-Version: 1.0\n"
@@ -17,4 +17,34 @@ msgstr "Category Meta"
 
 msgid "This additionnal data is attached to the current category"
 msgstr "This additionnal data is attached to the current category"
+
+msgid "Category Meta Version:"
+msgstr "Category Meta Version:"
+
+msgid "Meta list"
+msgstr "Meta list"
+
+msgid "Meta Name"
+msgstr "Meta name"
+
+msgid "Meta Type"
+msgstr "Meta type"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Delete this Meta"
+msgstr "Delete this Meta"
+
+msgid "Add a Meta"
+msgstr "Add a meta"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Text Area"
+msgstr "Text area"
+
+msgid "Add Meta"
+msgstr "Add meta"
 
