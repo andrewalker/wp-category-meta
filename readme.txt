@@ -17,6 +17,16 @@ It provides functions to retrive / create / update / delte the category meta.
 
 This plugin has been tested with WP2.6.5, WP2.8.4 and WPmu2.8.4
 
+Updates:
+1.0.1 : Add the possibility to replace special chars into meta name in the meta creation form in the option page.
+1.0.0 : Add the option page to easily configure the meta list
+
+== Update Log ==
+
+1.0.1 : Add the possibility to replace special chars into meta name in the meta creation form in the option page.
+1.0.0 : Add the option page to easily configure the meta list
+0.0.1 : plugin initial creation.
+
 == Installation ==
 
 1. Unzip into your `/wp-content/plugins/` directory. If you're uploading it make sure to upload

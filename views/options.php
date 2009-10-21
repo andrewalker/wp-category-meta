@@ -47,8 +47,12 @@ Class wptm_admin {
         if($_POST['action'] == "add") 
         {
             $new_meta_name = $_POST["new_meta_name"];
+            $new_meta_name_sanitize = $_POST["new_meta_name_sanitize"];
             // Sanitize the entered string to avoid special char problems
-            $new_meta_name = sanitize_title($new_meta_name);
+            if($new_meta_name_sanitize == 1)
+            {
+                $new_meta_name = sanitize_title($new_meta_name);
+            }
             $new_meta_type = $_POST["new_meta_type"];
             $configuration[$new_meta_name] = $new_meta_type;
             
@@ -109,6 +113,12 @@ Class wptm_admin {
                         <td class="titledesc"><?php _e('Meta Name','wp-category-meta'); ?>:</td>
                         <td class="forminp">
                             <input type="text" id="new_meta_name" name="new_meta_name" value="" />
+                        </td>
+                    </tr>
+                    <tr class="mainrow">        
+                        <td class="titledesc"><?php _e('Sanitize meta name','wp-category-meta'); ?>:</td>
+                        <td class="forminp">
+                            <input type="checkbox" id="new_meta_name_sanitize" name="new_meta_name_sanitize" value="1" checked="checked" />
                         </td>
                     </tr>
                     <tr class="mainrow">        
