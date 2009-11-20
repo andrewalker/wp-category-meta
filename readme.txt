@@ -4,7 +4,7 @@ Donate link: #
 Tags: category,meta,category meta,admin,plugin
 Requires at least: 2.6
 Tested up to: 2.8.4
-Stable tag: trunk
+Stable tag: 1.0.2
 
 Add the ability to attach meta data to the wordpress categories.
 
@@ -17,14 +17,14 @@ It provides functions to retrive / create / update / delte the category meta.
 
 This plugin has been tested with WP2.6.5, WP2.8.4 and WPmu2.8.4
 
-Updates:
-1.0.1 : Add the possibility to replace special chars into meta name in the meta creation form in the option page.
-1.0.0 : Add the option page to easily configure the meta list
-
 == Update Log ==
 
+1.0.2 : Debug when no meta is set.
+
 1.0.1 : Add the possibility to replace special chars into meta name in the meta creation form in the option page.
+
 1.0.0 : Add the option page to easily configure the meta list
+
 0.0.1 : plugin initial creation.
 
 == Installation ==

@@ -3,7 +3,7 @@
  * Plugin Name: wp-category-meta
  * Plugin URI: #
  * Description: Add the ability to attach meta to the Wordpress categories
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Eric Le Bail
  * Author URI: #
  *
@@ -448,7 +448,7 @@ function wptm_add_meta_textinput()
     if (is_object($category_id)) {
         $category_id = $category_id->term_id;
     }
-    if(!is_null($metaList) && count($metaList) > 0)
+    if(!is_null($metaList) && count($metaList) > 0 && metaList != '')
     {
     ?>
 <div id="commentstatusdiv" class="postbox " >
