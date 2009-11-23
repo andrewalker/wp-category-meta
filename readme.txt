@@ -1,10 +1,10 @@
 === Category Meta plugin ===
-Contributors: Eric Le Bail
+Contributors: Eric Le Bail, Tom Ransom
 Donate link: #
 Tags: category,meta,category meta,admin,plugin
 Requires at least: 2.6
 Tested up to: 2.8.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 Add the ability to attach meta data to the wordpress categories.
 
@@ -18,6 +18,8 @@ It provides functions to retrive / create / update / delte the category meta.
 This plugin has been tested with WP2.6.5, WP2.8.4 and WPmu2.8.4
 
 == Update Log ==
+
+1.0.3 : Fix an error on the meta update method thanks to Tom Ransom for sending the fix.
 
 1.0.2 : Debug when no meta is set.
 
