@@ -4,7 +4,7 @@ Donate link: #
 Tags: category,meta,category meta,admin,plugin,image,icon,images,icons,category icon,category image
 Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 
 Add the ability to attach meta data to the wordpress categories and terms.
 
@@ -43,19 +43,19 @@ Configure the meta you want to use.
 4. go to your Administration interface, in the "Category" menu -> new fields are displayed in the category creation/modification form with the meta you configured.
 5. That's it!
 6. you can use the folowing functions into your templates to retreive 1 meta:
-`<?php
+`
 if (function_exists('get_terms_meta'))
 {
     $metaValue = get_terms_meta($category_id, $meta_key);
 }
-?>`
+`
 6. you can use the folowing functions into your templates to retreive all meta:
-`<?php
+`
 if (function_exists('get_all_terms_meta'))
 {
     $metaList = get_all_terms_meta($category_id);
 }
-?>`
+`
 
 == Frequently Asked Questions ==
 
