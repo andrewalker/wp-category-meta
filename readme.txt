@@ -21,6 +21,8 @@ This plugin has been tested with WP2.8.6 and WPmu2.8.6 and WP3.0
 
 == Update Log ==
 
+1.1.1 : Fix a typo error when no meta has been configured.
+
 1.1.0 : Major release. Test and debug to be fully compatible with version 3.0.x . Add the new "image" type for meta.
 
 1.0.3 : Fix an error on the meta update method thanks to Tom Ransom for sending the fix.
