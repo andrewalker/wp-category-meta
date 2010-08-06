@@ -1,23 +1,27 @@
 === Category Meta plugin ===
 Contributors: Eric Le Bail, Tom Ransom
 Donate link: #
-Tags: category,meta,category meta,admin,plugin
-Requires at least: 2.6
-Tested up to: 2.8.4
-Stable tag: 1.0.3
+Tags: category,meta,category meta,admin,plugin,image,icon,images,icons,category icon,category image
+Requires at least: 2.8
+Tested up to: 3.0
+Stable tag: 1.1.0
 
-Add the ability to attach meta data to the wordpress categories.
+Add the ability to attach meta data to the wordpress categories and terms.
 
 == Description ==
 
-This plugins add meta data to the wordpress categories.
+This plugins add meta data to the wordpress categories and terms.
 It Creates a wp-termsmeta table to store the entered meta.
 It adds input fields to the category administration interface to enter the meta values.
-It provides functions to retrive / create / update / delte the category meta.
+It provides functions to retrive / create / update / delte the category and terms meta.
+It can be used to add meta to custom taxonomies (terms) 
+but in this case you have to create the new fields in yous taxonomies adminstration page.
 
-This plugin has been tested with WP2.6.5, WP2.8.4 and WPmu2.8.4
+This plugin has been tested with WP2.8.6 and WPmu2.8.6 and WP3.0
 
 == Update Log ==
+
+1.1.0 : Major release. Test and debug to be fully compatible with version 3.0.x . Add the new "image" type for meta.
 
 1.0.3 : Fix an error on the meta update method thanks to Tom Ransom for sending the fix.
 
@@ -39,23 +43,23 @@ Configure the meta you want to use.
 4. go to your Administration interface, in the "Category" menu -> new fields are displayed in the category creation/modification form with the meta you configured.
 5. That's it!
 6. you can use the folowing functions into your templates to retreive 1 meta:
-<?php
+`<?php
 if (function_exists('get_terms_meta'))
 {
     $metaValue = get_terms_meta($category_id, $meta_key);
 }
-?>
+?>`
 6. you can use the folowing functions into your templates to retreive all meta:
-<?php
+`<?php
 if (function_exists('get_all_terms_meta'))
 {
     $metaList = get_all_terms_meta($category_id);
 }
-?>
+?>`
 
 == Frequently Asked Questions ==
 
-This plugin is in final debuging phase.
+This plugin is in stable phase.
 
 == Screenshots ==
 

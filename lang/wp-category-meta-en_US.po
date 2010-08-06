@@ -1,53 +1,94 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
-"POT-Creation-Date: 2009-03-19\n"
-"PO-Revision-Date: 2009-10-21 10:30+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-06 11:01+0100\n"
+"PO-Revision-Date: 2010-08-06 11:01+0100\n"
 "Last-Translator: Eric Le Bail <eric_lebail@hotmail.com>\n"
-"Language-Team: en_US\n"
+"Language-Team: Eric Le Bail <eric_lebail@hotmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: English\n"
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
 
+#: ../wp-category-meta.php:484
 msgid "Category meta"
 msgstr "Category Meta"
 
+#: ../wp-category-meta.php:501
+#: ../wp-category-meta.php:510
 msgid "This additionnal data is attached to the current category"
 msgstr "This additionnal data is attached to the current category"
 
+#: ../wp-category-meta.php:528
+#: ../wp-category-meta.php:540
+msgid "No image selected"
+msgstr "No image selected"
+
+#: ../wp-category-meta.php:534
+msgid "Click here to add/change your image"
+msgstr "Click here to add/change your image"
+
+#: ../wp-category-meta.php:537
+msgid "Note: To choose image click the \"insert into post\" button in the media uploader"
+msgstr "Note: To choose image click the \"insert into post\" button in the media uploader"
+
+#: ../wp-category-meta.php:541
+msgid "Click here to remove the existing image"
+msgstr "Click here to remove the current image"
+
+#: ../views/options.php:70
 msgid "Category Meta Version:"
 msgstr "Category Meta Version:"
 
+#: ../views/options.php:74
 msgid "Meta list"
 msgstr "Meta list"
 
+#: ../views/options.php:79
+#: ../views/options.php:113
 msgid "Meta Name"
 msgstr "Meta name"
 
+#: ../views/options.php:80
+#: ../views/options.php:125
 msgid "Meta Type"
 msgstr "Meta type"
 
+#: ../views/options.php:81
 msgid "Action"
 msgstr "Action"
 
+#: ../views/options.php:96
 msgid "Delete this Meta"
 msgstr "Delete this Meta"
 
+#: ../views/options.php:108
 msgid "Add a Meta"
 msgstr "Add a meta"
 
+#: ../views/options.php:119
+msgid "Sanitize meta name"
+msgstr "Replace special characters into meta name"
+
+#: ../views/options.php:128
 msgid "Text"
 msgstr "Text"
 
+#: ../views/options.php:129
 msgid "Text Area"
 msgstr "Text area"
 
+#: ../views/options.php:130
+msgid "Image"
+msgstr "Image"
+
+#: ../views/options.php:139
 msgid "Add Meta"
 msgstr "Add meta"
-
-msgid "Sanitize meta name"
-msgstr "Replace special characters into meta name"
 

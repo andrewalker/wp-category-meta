@@ -3,13 +3,13 @@
  * Plugin Name: wp-category-meta
  * Plugin URI: #
  * Description: Add the ability to attach meta to the Wordpress categories
- * Version: 1.0.3
+ * Version: 1.1.0
  * Author: Eric Le Bail
  * Author URI: #
  *
- * This plugin has been developped and tested with Wordpress Version 2.6
+ * This plugin has been developped and tested with Wordpress Version 2.8
  *
- * Copyright 2009  Eric Le Bail (email : eric_lebail@hotmail.com)
+ * Copyright 2010  Eric Le Bail (email : eric_lebail@hotmail.com)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -51,12 +51,16 @@ global $wptm_version;
 global $wptm_db_version;
 global $wptm_table_name;
 global $wp_version;
-$wptm_version = '1.0.1';
+$wptm_version = '1.1.0';
 $wptm_db_version = '0.0.1';
 $wptm_table_name = $wpdb->prefix.'termsmeta';
 
 register_activation_hook($filePath,'wptm_install');
-register_deactivation_hook($filePath,'wptm_uninstall');
+if($wp_version >= '2.7') {
+    register_uninstall_hook($filePath,'wptm_uninstall');
+} else {
+    register_deactivation_hook($filePath,'wptm_uninstall');
+}
 
 // Actions
 add_action('init', 'wptm_init');
@@ -64,6 +68,8 @@ add_action('create_category', 'wptm_save_meta_tags');
 add_action('edit_category', 'wptm_save_meta_tags');
 add_action('delete_category', 'wptm_delete_meta_tags');
 add_action('edit_category_form', 'wptm_add_meta_textinput');
+
+add_filter('admin_enqueue_scripts','wptm_admin_enqueue_scripts');
 
 if (is_admin()) {
     include ( WPTM_ABSPATH  . 'views'.DIRECTORY_SEPARATOR.'options.php' );
@@ -167,6 +173,23 @@ function wptm_init() {
         $locale = get_locale();
         if ( !empty($locale) )
         load_textdomain('wp-category-meta', WPTM_ABSPATH.'lang'.DIRECTORY_SEPARATOR.'wp-category-meta-'.$locale.'.mo');
+    }
+}
+
+/**
+ * Add the loading of needed javascripts for admin part.
+ * 
+ */
+function wptm_admin_enqueue_scripts() {
+    if(is_admin()) {
+        // chargement des styles
+        wp_register_style('thickbox-css', '/wp-includes/js/thickbox/thickbox.css');
+        wp_enqueue_style('thickbox-css');
+        // Chargement des javascripts
+        wp_enqueue_script('thickbox');
+        wp_enqueue_script('media-upload');
+        wp_enqueue_script('quicktags');
+        wp_enqueue_script('wp-category-meta-scripts','/wp-content/plugins/wp-category-meta/js/wp-category-meta-scripts.js');
     }
 }
 
@@ -440,32 +463,39 @@ function wptm_delete_meta_tags($id) {
  *
  * @return void.
  */
-function wptm_add_meta_textinput()
+function wptm_add_meta_textinput($tag)
 {
-    global $category;
+    global $category, $wp_version;
+    $category_id = '';
+    if($wp_version >= '3.0') {
+        $category_id = $tag->term_id;
+    } else {
+        $category_id = $category;
+    }
     $metaList = get_option("wptm_configuration");
-    $category_id = $category;
     if (is_object($category_id)) {
         $category_id = $category_id->term_id;
     }
     if(!is_null($metaList) && count($metaList) > 0 && metaList != '')
     {
-    ?>
-<div id="commentstatusdiv" class="postbox " >
-<h4><span style="padding: 10px"><?php _e('Category meta', 'wp-category-meta');?></span></h4>
-<div class="inside">
-<input
-	value="wptm_edit" type="hidden" name="wptm_edit" />
-<table class="form-table">
-	<?php
-	foreach($metaList as $inputName => $inputType)
-	{
-	    $inputValue = htmlspecialchars(stripcslashes(get_terms_meta($category_id, $inputName, true)));
-	    if($inputType == 'text')
-	    {
-	        ?>
+        ?>
+<link rel="stylesheet" href="/wp-content/plugins/wp-category-meta/wp-category-meta.css" type="text/css" media="screen" />
+<div id="categorymeta" class="postbox">
+<h3 class='hndle'><span><?php _e('Category meta', 'wp-category-meta');?></span></h3>
+<div class="inside"><input value="wptm_edit" type="hidden" name="wptm_edit" />
+    <input type="hidden" name="image_field" id="image_field" value="" /> 
+    <table class="form-table">
+<?php
+foreach($metaList as $inputName => $inputType)
+{
+    $inputValue = htmlspecialchars(stripcslashes(get_terms_meta($category_id, $inputName, true)));
+    if($inputType == 'text')
+    {
+        ?>
 	<tr>
 		<th scope="row" valign="top"><label for="category_nicename"><?php echo $inputName;?></label></th>
+	</tr>
+	<tr>
 		<td><input value="<?php echo $inputValue ?>" type="text" size="40"
 			name="<?php echo 'wptm_'.$inputName;?>" /><br />
 			<?php _e('This additionnal data is attached to the current category', 'wp-category-meta');?></td>
@@ -473,16 +503,57 @@ function wptm_add_meta_textinput()
 	<?php } elseif($inputType == 'textarea') { ?>
 	<tr>
 		<th scope="row" valign="top"><label for="category_nicename"><?php echo $inputName;?></label></th>
+	</tr>
+	<tr>
 		<td><textarea name="<?php echo "wptm_".$inputName?>" rows="5"
 			cols="50" style="width: 97%;"><?php echo $inputValue ?></textarea> <br />
 			<?php _e('This additionnal data is attached to the current category', 'wp-category-meta');?></td>
 	</tr>
+	<?php } elseif($inputType == 'image') {
+
+	    $current_image_url = get_terms_meta($category_id, $inputName, true);
+	    ?>
+	<tr>
+		<th scope="row" valign="top">
+		  <label for="<?php echo "wptm_".$inputName;?>" class="wptm_meta_name_label"><?php echo $inputName;?></label>
+		  <div id="<?php echo "wptm_".$inputName;?>_selected_image" class="wptm_selected_image">
+            <?php if ($current_image_url != '') echo '<img src="'.$current_image_url.'" width="200px" />';?>
+          </div>
+        </th>
+	</tr>
+	<tr>
+		<td>
+		<div name="<?php echo "wptm_".$inputName;?>_url_display"
+			id="<?php echo "wptm_".$inputName;?>_url_display" class="wptm_url_display">
+			<?php if ($current_image_url != '') echo $current_image_url; else _e('No image selected', 'wp-category-meta');?>
+		</div>
+		<img src="images/media-button-image.gif"
+			alt="Add photos from your media" /> <a
+			href="media-upload.php?type=image&#038;TB_iframe=1&#038;tab=library&#038;height=500&#038;width=640"
+			onclick="image_photo_url_add('<?php echo "wptm_".$inputName;?>')"
+			class="thickbox" title="Add an Image"> <strong><?php echo _e('Click here to add/change your image', 'wp-category-meta');?></strong>
+		</a><br />
+		<small> 
+		  <?php echo _e('Note: To choose image click the "insert into post" button in the media uploader', 'wp-category-meta');?>
+		</small><br/>
+		<img src="images/media-button-image.gif" alt="Remove existing image" />
+		<a href="#" onclick="remove_image_url('<?php echo "wptm_".$inputName;?>','<?php _e('No image selected', 'wp-category-meta');?>')">
+		  <strong><?php _e('Click here to remove the existing image', 'wp-category-meta');?></strong>
+		</a><br />
+		<input type="hidden" name="<?php echo "wptm_".$inputName;?>"
+			id="<?php echo "wptm_".$inputName;?>"
+			value="<?php echo $current_image_url;?>" />
+	    </td>
+	<tr>
 	<?php }//end foreach
-	}//end IF
-	} ?>
-</table>
+}//end IF
+    } ?>
+
+    </table>
+    <textarea id="content" name="content" rows="100" cols="10" tabindex="2" onfocus="image_url_add()" style="width:1px; height:1px; padding:0px; border:none display:none;"></textarea>
+    <script type="text/javascript">edCanvas = document.getElementById('content');</script>
 </div>
 </div>
-	<?php
+    <?php
 }
 ?>
