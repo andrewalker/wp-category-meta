@@ -3,7 +3,7 @@
  * Plugin Name: wp-category-meta
  * Plugin URI: #
  * Description: Add the ability to attach meta to the Wordpress categories
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Eric Le Bail
  * Author URI: #
  *
@@ -51,7 +51,7 @@ global $wptm_version;
 global $wptm_db_version;
 global $wptm_table_name;
 global $wp_version;
-$wptm_version = '1.1.1';
+$wptm_version = '1.2.0';
 $wptm_db_version = '0.0.1';
 $wptm_table_name = $wpdb->prefix.'termsmeta';
 
@@ -64,10 +64,21 @@ if($wp_version >= '2.7') {
 
 // Actions
 add_action('init', 'wptm_init');
-add_action('create_category', 'wptm_save_meta_tags');
-add_action('edit_category', 'wptm_save_meta_tags');
-add_action('delete_category', 'wptm_delete_meta_tags');
-add_action('edit_category_form', 'wptm_add_meta_textinput');
+if($wp_version >= '3.0') {
+    add_action('created_term', 'wptm_save_meta_tags');
+    add_action('edit_term', 'wptm_save_meta_tags');
+    add_action('delete_term', 'wptm_delete_meta_tags');
+    $taxonomies=get_taxonomies('','names'); 
+    foreach ($taxonomies as $taxonomy ) {
+        add_action($taxonomy . '_add_form_fields', 'wptm_add_meta_textinput');
+        add_action($taxonomy . '_edit_form', 'wptm_add_meta_textinput');
+    }
+} else {
+    add_action('create_category', 'wptm_save_meta_tags');
+    add_action('edit_category', 'wptm_save_meta_tags');
+    add_action('delete_category', 'wptm_delete_meta_tags');
+    add_action('edit_category_form', 'wptm_add_meta_textinput'); 
+}
 
 add_filter('admin_enqueue_scripts','wptm_admin_enqueue_scripts');
 
@@ -465,7 +476,7 @@ function wptm_delete_meta_tags($id) {
  */
 function wptm_add_meta_textinput($tag)
 {
-    global $category, $wp_version;
+    global $category, $wp_version, $taxonomy;
     $category_id = '';
     if($wp_version >= '3.0') {
         $category_id = $tag->term_id;
@@ -481,78 +492,92 @@ function wptm_add_meta_textinput($tag)
         ?>
 <link rel="stylesheet" href="/wp-content/plugins/wp-category-meta/wp-category-meta.css" type="text/css" media="screen" />
 <div id="categorymeta" class="postbox">
-<h3 class='hndle'><span><?php _e('Category meta', 'wp-category-meta');?></span></h3>
-<div class="inside"><input value="wptm_edit" type="hidden" name="wptm_edit" />
-    <input type="hidden" name="image_field" id="image_field" value="" /> 
-    <table class="form-table">
+    <h3 class='hndle'><span><?php _e('Term meta', 'wp-category-meta');?></span></h3>
+    <div class="inside">
+        <input value="wptm_edit" type="hidden" name="wptm_edit" />
+        <input type="hidden" name="image_field" id="image_field" value="" /> 
+        <table class="form-table">
 <?php
-foreach($metaList as $inputName => $inputType)
+foreach($metaList as $inputName => $inputData)
 {
-    $inputValue = htmlspecialchars(stripcslashes(get_terms_meta($category_id, $inputName, true)));
-    if($inputType == 'text')
-    {
+    $inputType = '';
+    $inputTaxonomy = 'category';
+    if(is_array($inputData)) {
+        $inputType = $inputData['type'];
+        $inputTaxonomy = $inputData['taxonomy'];
+    } else {
+        $inputType = $inputData;
+    }
+    // display the input field in 2 cases
+    // WP version if < 3.0
+    // or WP version > 3.0 and $inputTaxonomy == current taxonomy
+    if($wp_version < '3.0' || $inputTaxonomy == $taxonomy) {
+        $inputValue = htmlspecialchars(stripcslashes(get_terms_meta($category_id, $inputName, true)));
+        if($inputType == 'text')
+        {
         ?>
-	<tr>
-		<th scope="row" valign="top"><label for="category_nicename"><?php echo $inputName;?></label></th>
-	</tr>
-	<tr>
-		<td><input value="<?php echo $inputValue ?>" type="text" size="40"
-			name="<?php echo 'wptm_'.$inputName;?>" /><br />
-			<?php _e('This additionnal data is attached to the current category', 'wp-category-meta');?></td>
-	</tr>
+    	<tr>
+    		<th scope="row" valign="top"><label for="category_nicename"><?php echo $inputName;?></label></th>
+    	</tr>
+    	<tr>
+    		<td><input value="<?php echo $inputValue ?>" type="text" size="40"
+    			name="<?php echo 'wptm_'.$inputName;?>" /><br />
+    			<?php _e('This additionnal data is attached to the current term', 'wp-category-meta');?></td>
+    	</tr>
 	<?php } elseif($inputType == 'textarea') { ?>
-	<tr>
-		<th scope="row" valign="top"><label for="category_nicename"><?php echo $inputName;?></label></th>
-	</tr>
-	<tr>
-		<td><textarea name="<?php echo "wptm_".$inputName?>" rows="5"
-			cols="50" style="width: 97%;"><?php echo $inputValue ?></textarea> <br />
-			<?php _e('This additionnal data is attached to the current category', 'wp-category-meta');?></td>
-	</tr>
+    	<tr>
+    		<th scope="row" valign="top"><label for="category_nicename"><?php echo $inputName;?></label></th>
+    	</tr>
+    	<tr>
+    		<td><textarea name="<?php echo "wptm_".$inputName?>" rows="5"
+    			cols="50" style="width: 97%;"><?php echo $inputValue ?></textarea> <br />
+    			<?php _e('This additionnal data is attached to the current term', 'wp-category-meta');?></td>
+    	</tr>
 	<?php } elseif($inputType == 'image') {
 
 	    $current_image_url = get_terms_meta($category_id, $inputName, true);
 	    ?>
-	<tr>
-		<th scope="row" valign="top">
-		  <label for="<?php echo "wptm_".$inputName;?>" class="wptm_meta_name_label"><?php echo $inputName;?></label>
-		  <div id="<?php echo "wptm_".$inputName;?>_selected_image" class="wptm_selected_image">
-            <?php if ($current_image_url != '') echo '<img src="'.$current_image_url.'" width="200px" />';?>
-          </div>
-        </th>
-	</tr>
-	<tr>
-		<td>
-		<div name="<?php echo "wptm_".$inputName;?>_url_display"
-			id="<?php echo "wptm_".$inputName;?>_url_display" class="wptm_url_display">
-			<?php if ($current_image_url != '') echo $current_image_url; else _e('No image selected', 'wp-category-meta');?>
-		</div>
-		<img src="images/media-button-image.gif"
-			alt="Add photos from your media" /> <a
-			href="media-upload.php?type=image&#038;TB_iframe=1&#038;tab=library&#038;height=500&#038;width=640"
-			onclick="image_photo_url_add('<?php echo "wptm_".$inputName;?>')"
-			class="thickbox" title="Add an Image"> <strong><?php echo _e('Click here to add/change your image', 'wp-category-meta');?></strong>
-		</a><br />
-		<small> 
-		  <?php echo _e('Note: To choose image click the "insert into post" button in the media uploader', 'wp-category-meta');?>
-		</small><br/>
-		<img src="images/media-button-image.gif" alt="Remove existing image" />
-		<a href="#" onclick="remove_image_url('<?php echo "wptm_".$inputName;?>','<?php _e('No image selected', 'wp-category-meta');?>')">
-		  <strong><?php _e('Click here to remove the existing image', 'wp-category-meta');?></strong>
-		</a><br />
-		<input type="hidden" name="<?php echo "wptm_".$inputName;?>"
-			id="<?php echo "wptm_".$inputName;?>"
-			value="<?php echo $current_image_url;?>" />
-	    </td>
-	<tr>
-	<?php }//end foreach
-}//end IF
+    	<tr>
+    		<th scope="row" valign="top">
+    		  <label for="<?php echo "wptm_".$inputName;?>" class="wptm_meta_name_label"><?php echo $inputName;?></label>
+    		  <div id="<?php echo "wptm_".$inputName;?>_selected_image" class="wptm_selected_image">
+                <?php if ($current_image_url != '') echo '<img src="'.$current_image_url.'" width="200px" />';?>
+              </div>
+            </th>
+    	</tr>
+    	<tr>
+    		<td>
+    		<div name="<?php echo "wptm_".$inputName;?>_url_display"
+    			id="<?php echo "wptm_".$inputName;?>_url_display" class="wptm_url_display">
+    			<?php if ($current_image_url != '') echo $current_image_url; else _e('No image selected', 'wp-category-meta');?>
+    		</div>
+    		<img src="images/media-button-image.gif"
+    			alt="Add photos from your media" /> <a
+    			href="media-upload.php?type=image&#038;TB_iframe=1&#038;tab=library&#038;height=500&#038;width=640"
+    			onclick="image_photo_url_add('<?php echo "wptm_".$inputName;?>')"
+    			class="thickbox" title="Add an Image"> <strong><?php echo _e('Click here to add/change your image', 'wp-category-meta');?></strong>
+    		</a><br />
+    		<small> 
+    		  <?php echo _e('Note: To choose image click the "insert into post" button in the media uploader', 'wp-category-meta');?>
+    		</small><br/>
+    		<img src="images/media-button-image.gif" alt="Remove existing image" />
+    		<a href="#" onclick="remove_image_url('<?php echo "wptm_".$inputName;?>','<?php _e('No image selected', 'wp-category-meta');?>')">
+    		  <strong><?php _e('Click here to remove the existing image', 'wp-category-meta');?></strong>
+    		</a><br />
+    		<input type="hidden" name="<?php echo "wptm_".$inputName;?>"
+    			id="<?php echo "wptm_".$inputName;?>"
+    			value="<?php echo $current_image_url;?>" />
+    	    </td>
+    	<tr>
+	<?php } // end elseif
+	   }//end foreach
+    }//end IF
     } ?>
 
-    </table>
-    <textarea id="content" name="content" rows="100" cols="10" tabindex="2" onfocus="image_url_add()" style="width:1px; height:1px; padding:0px; border:none display:none;"></textarea>
-    <script type="text/javascript">edCanvas = document.getElementById('content');</script>
-</div>
+        </table>
+        <textarea id="content" name="content" rows="100" cols="10" tabindex="2" onfocus="image_url_add()" style="width:1px; height:1px; padding:0px; border:none display:none;"></textarea>
+        <script type="text/javascript">edCanvas = document.getElementById('content');</script>
+    </div>
 </div>
     <?php
 }

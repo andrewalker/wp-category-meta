@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-06 11:01+0100\n"
-"PO-Revision-Date: 2010-08-06 11:01+0100\n"
+"POT-Creation-Date: 2010-08-09 16:34+0100\n"
+"PO-Revision-Date: 2010-08-09 16:34+0100\n"
 "Last-Translator: Eric Le Bail <eric_lebail@hotmail.com>\n"
 "Language-Team: Eric Le Bail <eric_lebail@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,79 +16,87 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ../.\n"
 
-#: .././wp-category-meta.php:484
-msgid "Category meta"
-msgstr "Méta de la catégorie"
+#: .././wp-category-meta.php:494
+msgid "Term meta"
+msgstr "Méta pour le term (Catégorie / Tag / ....)"
 
-#: .././wp-category-meta.php:501
-#: .././wp-category-meta.php:510
-msgid "This additionnal data is attached to the current category"
-msgstr "Ces données additionelles sont attachées à la catégorie courrante."
+#: .././wp-category-meta.php:523
+#: .././wp-category-meta.php:532
+msgid "This additionnal data is attached to the current term"
+msgstr "Ces données additionelles sont attachées au \"term\" courrant (Category / Tag / ...)."
 
-#: .././wp-category-meta.php:528
-#: .././wp-category-meta.php:540
+#: .././wp-category-meta.php:550
+#: .././wp-category-meta.php:562
 msgid "No image selected"
 msgstr "Aucune image sélectionnée"
 
-#: .././wp-category-meta.php:534
+#: .././wp-category-meta.php:556
 msgid "Click here to add/change your image"
 msgstr "Cliquer ici pour ajouter / modifier l'image"
 
-#: .././wp-category-meta.php:537
+#: .././wp-category-meta.php:559
 msgid "Note: To choose image click the \"insert into post\" button in the media uploader"
 msgstr "Note: Pour choisir une image cliquez sur le bouton \"Ajouter à l'article\" dans la bibliothèque média"
 
-#: .././wp-category-meta.php:541
+#: .././wp-category-meta.php:563
 msgid "Click here to remove the existing image"
 msgstr "Cliquer ici pour supprimer l'image sélectionnée."
 
-#: .././views/options.php:70
+#: .././views/options.php:72
 msgid "Category Meta Version:"
 msgstr "Catégorie Méta Version:"
 
-#: .././views/options.php:74
+#: .././views/options.php:76
 msgid "Meta list"
 msgstr "Liste des méta"
 
-#: .././views/options.php:79
-#: .././views/options.php:113
+#: .././views/options.php:84
+#: .././views/options.php:135
 msgid "Meta Name"
 msgstr "Nom de la méta"
 
-#: .././views/options.php:80
-#: .././views/options.php:125
+#: .././views/options.php:85
+#: .././views/options.php:147
 msgid "Meta Type"
 msgstr "Type de la méta"
 
-#: .././views/options.php:81
+#: .././views/options.php:87
+msgid "Meta Taxonomy"
+msgstr "Taxonomie de la méta (Category / Tag / ...)"
+
+#: .././views/options.php:89
 msgid "Action"
 msgstr "Action"
 
-#: .././views/options.php:96
+#: .././views/options.php:118
 msgid "Delete this Meta"
 msgstr "Supprimer cette méta"
 
-#: .././views/options.php:108
+#: .././views/options.php:130
 msgid "Add a Meta"
 msgstr "Ajouter une méta"
 
-#: .././views/options.php:119
+#: .././views/options.php:141
 msgid "Sanitize meta name"
 msgstr "Replacer les caratères spéciaux dans le nom de la méta"
 
-#: .././views/options.php:128
+#: .././views/options.php:150
 msgid "Text"
 msgstr "Texte"
 
-#: .././views/options.php:129
+#: .././views/options.php:151
 msgid "Text Area"
 msgstr "Zone de texte"
 
-#: .././views/options.php:130
+#: .././views/options.php:152
 msgid "Image"
 msgstr "Image"
 
-#: .././views/options.php:139
+#: .././views/options.php:158
+msgid "Meta Toxonomy"
+msgstr "Taxonomie de la méta (Category / Tag / ...)"
+
+#: .././views/options.php:176
 msgid "Add Meta"
 msgstr "Ajouter la méta"
 

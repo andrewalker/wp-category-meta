@@ -2,7 +2,7 @@
 
 Class wptm_admin {
 
-    var $version = '1.1.1';
+    var $version = '1.2.0';
 
     function wptm_admin() {
 
@@ -38,6 +38,7 @@ Class wptm_admin {
     //build admin interface
     function wptm_option_page() 
     {   
+        global $wp_version;
         $configuration = get_option("wptm_configuration");
         if(is_null($configuration) || $configuration == '')
         {
@@ -54,7 +55,8 @@ Class wptm_admin {
                 $new_meta_name = sanitize_title($new_meta_name);
             }
             $new_meta_type = $_POST["new_meta_type"];
-            $configuration[$new_meta_name] = $new_meta_type;
+            $new_meta_taxonomy = $_POST["new_meta_taxonomy"];
+            $configuration[$new_meta_name] = array('type' => $new_meta_type, 'taxonomy' => $new_meta_taxonomy);
             
             update_option("wptm_configuration", $configuration);
             
@@ -73,22 +75,42 @@ Class wptm_admin {
                     <tr class="title">
                         <th scope="col" class="manage-column"><?php _e('Meta list', 'wp-category-meta'); ?></th>
                         <th scope="col" class="manage-column"></th>
+                        <?php if($wp_version >= '3.0') {?>
+                        <th scope="col" class="manage-column"></th>
+                        <?php } ?>
                         <th scope="col" class="manage-column"></th>
                     </tr>
                     <tr class="title">
                         <th scope="col" class="manage-column"><?php _e('Meta Name', 'wp-category-meta'); ?></th>
                         <th scope="col" class="manage-column"><?php _e('Meta Type', 'wp-category-meta'); ?></th>
+                        <?php if($wp_version >= '3.0') {?>
+                        <th scope="col" class="manage-column"><?php _e('Meta Taxonomy', 'wp-category-meta'); ?></th>
+                        <?php } ?>
                         <th scope="col" class="manage-column"><?php _e('Action', 'wp-category-meta'); ?></th>
                     </tr>
                 </thead>
                 <?php 
-                    foreach($configuration as $name => $type)
-                    { ?>
+                    foreach($configuration as $name => $data)
+                    { 
+                        $type = '';
+                        $taxonomy = 'category';
+                        if(is_array($data)) {
+                            $type = $data['type'];
+                            $taxonomy = $data['taxonomy'];
+                        } else {
+                            $type = $data;
+                        }
+                        ?>
                 <tr class="mainrow">        
                     <td class="titledesc"><?php echo $name;?></td>
                     <td class="forminp">
                         <?php echo $type;?>
                     </td>
+                    <?php if($wp_version >= '3.0') {?>
+                    <td class="forminp">
+                        <?php echo $taxonomy;?>
+                    </td>
+                    <?php } ?>
                     <td class="forminp">
                         <form method="post">
                         <input type="hidden" name="action" value="delete" />
@@ -131,6 +153,21 @@ Class wptm_admin {
                             </select>
                         </td>
                     </tr>
+                    <?php if($wp_version >= '3.0') {?>
+                    <tr class="mainrow">        
+                        <td class="titledesc"><?php _e('Meta Toxonomy','wp-category-meta'); ?>:</td>
+                        <td class="forminp">
+                            <select id="new_meta_taxonomy" name="new_meta_taxonomy">
+                                <?php 
+                                    $taxonomies=get_taxonomies('','names'); 
+                                    foreach ($taxonomies as $taxonomy ) {
+                                      echo '<option value="'.$taxonomy.'">'. $taxonomy. '</option>';
+                                    }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <?php } ?>
                     <tr class="mainrow">
                         <td class="titledesc">
                         <input type="hidden" name="action" value="add" />
