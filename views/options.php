@@ -2,7 +2,7 @@
 
 Class wptm_admin {
 
-    var $version = '1.2.0';
+    var $version = '1.2.1';
 
     function wptm_admin() {
 

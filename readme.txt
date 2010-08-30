@@ -4,7 +4,7 @@ Donate link: #
 Tags: category,meta,category meta,admin,plugin,image,icon,images,icons,category icon,category image,taxonomy metadata,taxonomy meta,custom taxonomy meta
 Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 
 Add the ability to attach meta data to the wordpress categories and terms.
 
@@ -19,6 +19,8 @@ It can be used to add meta to custom taxonomies (terms).
 This plugin has been tested with WP2.8.6 and WPmu2.8.6 and WP3.0
 
 == Update Log ==
+
+1.2.1 . Smal fix to avoid problem wih global variables in the taxonomy list with WP3.0.1. (thanks to Jeff).
 
 1.2.0 : Major release. Add the terms meta administration form on all terms (category / Tags / custom taxonomies) for WP version 3.0 and above.
 
@@ -44,14 +46,15 @@ the top-level folder. Don't just upload all the php files and put them in `/wp-c
 3. Go to your Administration interface in the "Settings" menu a new "Category Meta" page is created.
 Configure the meta you want to use.
 4. go to your Administration interface, in the "Category" menu -> new fields are displayed in the category creation/modification form with the meta you configured.
-5. That's it!6. you can use the folowing functions into your templates to retreive 1 meta:
+5. That's it!
+6. you can use the folowing functions into your templates to retreive 1 meta:
 `
 if (function_exists('get_terms_meta'))
 {
     $metaValue = get_terms_meta($category_id, $meta_key);
 }
 `
-6. you can use the folowing functions into your templates to retreive all meta:
+7. you can use the folowing functions into your templates to retreive all meta:
 `
 if (function_exists('get_all_terms_meta'))
 {
