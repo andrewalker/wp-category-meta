@@ -4,9 +4,10 @@ Donate link: #
 Tags: category,meta,category meta,admin,plugin,image,icon,images,icons,category icon,category image,taxonomy metadata,taxonomy meta,custom taxonomy meta
 Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Add the ability to attach meta data to the wordpress categories and terms.
+It can be used to add meta to custom taxonomies (terms).
 
 == Description ==
 
@@ -19,8 +20,9 @@ It can be used to add meta to custom taxonomies (terms).
 This plugin has been tested with WP2.8.6 and WPmu2.8.6 and WP3.0
 
 == Update Log ==
+1.2.2 . Small fix to make the meta list appear in the taxonomy edit page with WP3.0.1. && WP3.0.4 (thanks to Patrick).
 
-1.2.1 . Smal fix to avoid problem wih global variables in the taxonomy list with WP3.0.1. (thanks to Jeff).
+1.2.1 . Small fix to avoid problem wih global variables in the taxonomy list with WP3.0.1. (thanks to Jeff).
 
 1.2.0 : Major release. Add the terms meta administration form on all terms (category / Tags / custom taxonomies) for WP version 3.0 and above.
 

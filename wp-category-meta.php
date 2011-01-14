@@ -3,7 +3,7 @@
  * Plugin Name: wp-category-meta
  * Plugin URI: #
  * Description: Add the ability to attach meta to the Wordpress categories
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: Eric Le Bail
  * Author URI: #
  *
@@ -51,7 +51,7 @@ global $wptm_version;
 global $wptm_db_version;
 global $wptm_table_name;
 global $wp_version;
-$wptm_version = '1.2.1';
+$wptm_version = '1.2.2';
 $wptm_db_version = '0.0.1';
 $wptm_table_name = $wpdb->prefix.'termsmeta';
 
@@ -64,24 +64,6 @@ if($wp_version >= '2.7') {
 
 // Actions
 add_action('init', 'wptm_init');
-if($wp_version >= '3.0') {
-    add_action('created_term', 'wptm_save_meta_tags');
-    add_action('edit_term', 'wptm_save_meta_tags');
-    add_action('delete_term', 'wptm_delete_meta_tags');
-    $wptm_taxonomies=get_taxonomies('','names');
-    if (is_array($wptm_taxonomies) )
-    {
-        foreach ($wptm_taxonomies as $wptm_taxonomy ) {
-            add_action($wptm_taxonomy . '_add_form_fields', 'wptm_add_meta_textinput');
-            add_action($wptm_taxonomy . '_edit_form', 'wptm_add_meta_textinput');
-        }
-    }
-} else {
-    add_action('create_category', 'wptm_save_meta_tags');
-    add_action('edit_category', 'wptm_save_meta_tags');
-    add_action('delete_category', 'wptm_delete_meta_tags');
-    add_action('edit_category_form', 'wptm_add_meta_textinput');
-}
 
 add_filter('admin_enqueue_scripts','wptm_admin_enqueue_scripts');
 
@@ -178,6 +160,7 @@ function wptm_dropTable($wpdb, $table_name)
  * @return void.
  */
 function wptm_init() {
+    global $wp_version;
     if (function_exists('load_plugin_textdomain')) {
         load_plugin_textdomain('wp-category-meta', PLUGINDIR.DIRECTORY_SEPARATOR."wp-category-meta".DIRECTORY_SEPARATOR.'lang');
     }
@@ -187,6 +170,24 @@ function wptm_init() {
         $locale = get_locale();
         if ( !empty($locale) )
         load_textdomain('wp-category-meta', WPTM_ABSPATH.'lang'.DIRECTORY_SEPARATOR.'wp-category-meta-'.$locale.'.mo');
+    }
+    if($wp_version >= '3.0') {
+        add_action('created_term', 'wptm_save_meta_tags');
+        add_action('edit_term', 'wptm_save_meta_tags');
+        add_action('delete_term', 'wptm_delete_meta_tags');
+        $wptm_taxonomies=get_taxonomies('','names');
+        if (is_array($wptm_taxonomies) )
+        {
+            foreach ($wptm_taxonomies as $wptm_taxonomy ) {
+                add_action($wptm_taxonomy . '_add_form_fields', 'wptm_add_meta_textinput');
+                add_action($wptm_taxonomy . '_edit_form', 'wptm_add_meta_textinput');
+            }
+        }
+    } else {
+        add_action('create_category', 'wptm_save_meta_tags');
+        add_action('edit_category', 'wptm_save_meta_tags');
+        add_action('delete_category', 'wptm_delete_meta_tags');
+        add_action('edit_category_form', 'wptm_add_meta_textinput');
     }
 }
 
@@ -493,8 +494,7 @@ function wptm_add_meta_textinput($tag)
     if(!is_null($metaList) && count($metaList) > 0 && $metaList != '')
     {
         ?>
-<link
-	rel="stylesheet"
+<link rel="stylesheet"
 	href="/wp-content/plugins/wp-category-meta/wp-category-meta.css"
 	type="text/css" media="screen" />
 <div id="categorymeta" class="postbox">
@@ -584,10 +584,10 @@ foreach($metaList as $inputName => $inputData)
 </table>
 <textarea id="content" name="content" rows="100" cols="10" tabindex="2"
 	onfocus="image_url_add()"
-	style="width: 1px; height: 1px; padding: 0px; border: none display : none;"></textarea>
+	style="width: 1px; height: 1px; padding: 0px; border: none display :   none;"></textarea>
 <script type="text/javascript">edCanvas = document.getElementById('content');</script>
 </div>
 </div>
-    <?php
+<?php
 }
 ?>
