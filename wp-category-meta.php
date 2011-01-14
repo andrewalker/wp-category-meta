@@ -3,7 +3,7 @@
  * Plugin Name: wp-category-meta
  * Plugin URI: #
  * Description: Add the ability to attach meta to the Wordpress categories
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Eric Le Bail
  * Author URI: #
  *
@@ -51,7 +51,7 @@ global $wptm_version;
 global $wptm_db_version;
 global $wptm_table_name;
 global $wp_version;
-$wptm_version = '1.2.2';
+$wptm_version = '1.2.3';
 $wptm_db_version = '0.0.1';
 $wptm_table_name = $wpdb->prefix.'termsmeta';
 
@@ -572,10 +572,18 @@ foreach($metaList as $inputName => $inputData)
 		</a><br />
 		<input type="hidden" name="<?php echo "wptm_".$inputName;?>"
 			id="<?php echo "wptm_".$inputName;?>"
-			value="<?php echo $current_image_url;?>" /></td>
-	
-	
+			value="<?php echo $current_image_url;?>" />
+		</td>
 	<tr>
+	<?php } elseif($inputType == 'checkbox') { ?>
+    <tr>
+        <th scope="row" valign="top"><label for="category_nicename"><?php echo $inputName;?></label></th>
+    </tr>
+    <tr>
+        <td><input value="checked" type="checkbox" <?php echo $inputValue ? 'checked="checked" ' : ''; ?>
+            name="<?php echo 'wptm_'.$inputName;?>" /><br />
+            <?php _e('This additionnal data is attached to the current term', 'wp-category-meta');?></td>
+    </tr>
 	<?php } // end elseif
     }//end foreach
 }//end IF

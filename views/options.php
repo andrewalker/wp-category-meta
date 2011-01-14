@@ -2,7 +2,7 @@
 
 Class wptm_admin {
 
-    var $version = '1.2.2';
+    var $version = '1.2.3';
 
     function wptm_admin() {
 
@@ -150,6 +150,7 @@ Class wptm_admin {
                                 <option value="text"><?php _e('Text','wp-category-meta'); ?></option>
                                 <option value="textarea"><?php _e('Text Area','wp-category-meta'); ?></option>
                                 <option value="image"><?php _e('Image','wp-category-meta'); ?></option>
+                                <option value="checkbox"><?php _e('Check Box','wp-category-meta'); ?></option>
                             </select>
                         </td>
                     </tr>

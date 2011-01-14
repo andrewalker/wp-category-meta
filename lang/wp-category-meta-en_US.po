@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-09 16:35+0100\n"
-"PO-Revision-Date: 2010-08-09 16:35+0100\n"
+"POT-Creation-Date: 2011-01-14 12:00+0100\n"
+"PO-Revision-Date: 2011-01-14 12:02+0100\n"
 "Last-Translator: Eric Le Bail <eric_lebail@hotmail.com>\n"
 "Language-Team: Eric Le Bail <eric_lebail@hotmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,29 +16,30 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wp-category-meta.php:494
+#: ../wp-category-meta.php:501
 msgid "Term meta"
 msgstr "Term ( Category / Tag / ...) meta"
 
-#: ../wp-category-meta.php:523
-#: ../wp-category-meta.php:532
+#: ../wp-category-meta.php:531
+#: ../wp-category-meta.php:540
+#: ../wp-category-meta.php:585
 msgid "This additionnal data is attached to the current term"
 msgstr "This additionnal data is attached to the current \"term\" (Category / Tag / ...)"
 
-#: ../wp-category-meta.php:550
-#: ../wp-category-meta.php:562
+#: ../wp-category-meta.php:558
+#: ../wp-category-meta.php:570
 msgid "No image selected"
 msgstr "No image selected"
 
-#: ../wp-category-meta.php:556
+#: ../wp-category-meta.php:564
 msgid "Click here to add/change your image"
 msgstr "Click here to add/change your image"
 
-#: ../wp-category-meta.php:559
+#: ../wp-category-meta.php:566
 msgid "Note: To choose image click the \"insert into post\" button in the media uploader"
 msgstr "Note: To choose image click the \"insert into post\" button in the media uploader"
 
-#: ../wp-category-meta.php:563
+#: ../wp-category-meta.php:571
 msgid "Click here to remove the existing image"
 msgstr "Click here to remove the current image"
 
@@ -92,11 +93,15 @@ msgstr "Text area"
 msgid "Image"
 msgstr "Image"
 
-#: ../views/options.php:158
+#: ../views/options.php:153
+msgid "Check Box"
+msgstr "Check Box"
+
+#: ../views/options.php:159
 msgid "Meta Toxonomy"
 msgstr "Meta taxonomy (Category / Tag / ...)"
 
-#: ../views/options.php:176
+#: ../views/options.php:177
 msgid "Add Meta"
 msgstr "Add meta"
 
