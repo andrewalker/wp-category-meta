@@ -3,7 +3,7 @@
  * Plugin Name: wp-category-meta
  * Plugin URI: #
  * Description: Add the ability to attach meta to the Wordpress categories
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author: Eric Le Bail
  * Author URI: #
  *
@@ -51,7 +51,7 @@ global $wptm_version;
 global $wptm_db_version;
 global $wptm_table_name;
 global $wp_version;
-$wptm_version = '1.2.3';
+$wptm_version = '1.2.4';
 $wptm_db_version = '0.0.1';
 $wptm_table_name = $wpdb->prefix.'termsmeta';
 
@@ -63,7 +63,7 @@ if($wp_version >= '2.7') {
 }
 
 // Actions
-add_action('init', 'wptm_init');
+add_action('admin_init', 'wptm_init');
 
 add_filter('admin_enqueue_scripts','wptm_admin_enqueue_scripts');
 
