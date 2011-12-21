@@ -590,10 +590,6 @@ foreach($metaList as $inputName => $inputData)
     } ?>
 
 </table>
-<textarea id="content" name="content" rows="100" cols="10" tabindex="2"
-	onfocus="image_url_add()"
-	style="width: 1px; height: 1px; padding: 0px; border: none display :   none;"></textarea>
-<script type="text/javascript">edCanvas = document.getElementById('content');</script>
 </div>
 </div>
 <?php

@@ -18,13 +18,15 @@ function image_url_sync(){
     
 }
 
-function image_url_add(){
-	image_url = edCanvas.value.match(/img src=\"(.*?)\"/g)[0].split(/img src=\"(.*?)\"/g)[1];
-    image_url = image_url.replace(/-[0-9][0-9][0-9]x[0-9][0-9][0-9]\./i,'.');
-    image_url_collection = image_url;
-    edCanvas.value = '';
-    image_url_sync();
-}
+jQuery(function ($) {
+    window.send_to_editor = function (html) {
+        image_url = $('img',html).attr('src');
+        image_url = image_url.replace(/-[0-9]+x[0-9]+\./i,'.');
+        image_url_collection = image_url;
+        image_url_sync();
+        tb_remove();
+    }
+});
 
 function image_photo_url_add($field){
 	jQuery("#image_field").val($field);
