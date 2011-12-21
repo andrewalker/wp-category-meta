@@ -15,7 +15,7 @@ Class wptm_admin {
         add_action('admin_menu', array(&$this, 'wptm_add_options_panel'));
 
     }
-    
+
     //styling options page
     function wptm_options_style() {
         ?>
@@ -29,23 +29,23 @@ Class wptm_admin {
         </style>
     <?php
     }
-    
+
     //Add configuration page into admin interface.
     function wptm_add_options_panel() {
         add_options_page('Category Meta Options', 'Category Meta', 7, 'category_meta', array(&$this, 'wptm_option_page'));
     }
-    
+
     //build admin interface
-    function wptm_option_page() 
-    {   
+    function wptm_option_page()
+    {
         global $wp_version;
         $configuration = get_option("wptm_configuration");
         if(is_null($configuration) || $configuration == '')
         {
             $configuration = array();
         }
-        
-        if($_POST['action'] == "add") 
+
+        if($_POST['action'] == "add")
         {
             $new_meta_name = $_POST["new_meta_name"];
             $new_meta_name_sanitize = $_POST["new_meta_name_sanitize"];
@@ -57,11 +57,11 @@ Class wptm_admin {
             $new_meta_type = $_POST["new_meta_type"];
             $new_meta_taxonomy = $_POST["new_meta_taxonomy"];
             $configuration[$new_meta_name] = array('type' => $new_meta_type, 'taxonomy' => $new_meta_taxonomy);
-            
+
             update_option("wptm_configuration", $configuration);
-            
+
         }
-        else if($_POST['action'] == "delete") 
+        else if($_POST['action'] == "delete")
         {
             $delete_Meta_Name = $_POST["delete_Meta_Name"];
             unset($configuration[$delete_Meta_Name]);
@@ -89,9 +89,9 @@ Class wptm_admin {
                         <th scope="col" class="manage-column"><?php _e('Action', 'wp-category-meta'); ?></th>
                     </tr>
                 </thead>
-                <?php 
+                <?php
                     foreach($configuration as $name => $data)
-                    { 
+                    {
                         $type = '';
                         $taxonomy = 'category';
                         if(is_array($data)) {
@@ -101,7 +101,7 @@ Class wptm_admin {
                             $type = $data;
                         }
                         ?>
-                <tr class="mainrow">        
+                <tr class="mainrow">
                     <td class="titledesc"><?php echo $name;?></td>
                     <td class="forminp">
                         <?php echo $type;?>
@@ -131,19 +131,19 @@ Class wptm_admin {
                             <th scope="col" class="manage-column"></th>
                         </tr>
                     </thead>
-                    <tr class="mainrow">        
+                    <tr class="mainrow">
                         <td class="titledesc"><?php _e('Meta Name','wp-category-meta'); ?>:</td>
                         <td class="forminp">
                             <input type="text" id="new_meta_name" name="new_meta_name" value="" />
                         </td>
                     </tr>
-                    <tr class="mainrow">        
+                    <tr class="mainrow">
                         <td class="titledesc"><?php _e('Sanitize meta name','wp-category-meta'); ?>:</td>
                         <td class="forminp">
                             <input type="checkbox" id="new_meta_name_sanitize" name="new_meta_name_sanitize" value="1" checked="checked" />
                         </td>
                     </tr>
-                    <tr class="mainrow">        
+                    <tr class="mainrow">
                         <td class="titledesc"><?php _e('Meta Type','wp-category-meta'); ?>:</td>
                         <td class="forminp">
                             <select id="new_meta_type" name="new_meta_type">
@@ -155,12 +155,12 @@ Class wptm_admin {
                         </td>
                     </tr>
                     <?php if($wp_version >= '3.0') {?>
-                    <tr class="mainrow">        
+                    <tr class="mainrow">
                         <td class="titledesc"><?php _e('Meta Toxonomy','wp-category-meta'); ?>:</td>
                         <td class="forminp">
                             <select id="new_meta_taxonomy" name="new_meta_taxonomy">
-                                <?php 
-                                    $taxonomies=get_taxonomies('','names'); 
+                                <?php
+                                    $taxonomies=get_taxonomies('','names');
                                     foreach ($taxonomies as $taxonomy ) {
                                       echo '<option value="'.$taxonomy.'">'. $taxonomy. '</option>';
                                     }
@@ -180,7 +180,7 @@ Class wptm_admin {
                 </table>
             </form>
         </div>
-    <?php 
+    <?php
     }
 }
 ?>
