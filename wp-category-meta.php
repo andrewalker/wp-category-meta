@@ -195,17 +195,18 @@ function wptm_init() {
  * Add the loading of needed javascripts for admin part.
  *
  */
-function wptm_admin_enqueue_scripts() {
-    if(is_admin()) {
-        // chargement des styles
-        wp_register_style('thickbox-css', '/wp-includes/js/thickbox/thickbox.css');
-        wp_enqueue_style('thickbox-css');
-        // Chargement des javascripts
-        wp_enqueue_script('thickbox');
-        wp_enqueue_script('media-upload');
-        wp_enqueue_script('quicktags');
-        wp_enqueue_script('wp-category-meta-scripts','/wp-content/plugins/wp-category-meta/js/wp-category-meta-scripts.js');
-    }
+function wptm_admin_enqueue_scripts( $hook ) {
+    if ($hook != 'edit-tags.php')
+        return;
+
+    // chargement des styles
+    wp_register_style('thickbox-css', '/wp-includes/js/thickbox/thickbox.css');
+    wp_enqueue_style('thickbox-css');
+    // Chargement des javascripts
+    wp_enqueue_script('thickbox');
+    wp_enqueue_script('media-upload');
+    wp_enqueue_script('quicktags');
+    wp_enqueue_script('wp-category-meta-scripts','/wp-content/plugins/wp-category-meta/js/wp-category-meta-scripts.js');
 }
 
 /**
