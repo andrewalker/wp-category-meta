@@ -1,15 +1,14 @@
 <?php
 /*
  * Plugin Name: wp-category-meta
- * Plugin URI: #
  * Description: Add the ability to attach meta to the Wordpress categories
- * Version: 1.2.4
- * Author: Eric Le Bail
- * Author URI: #
+ * Version: 1.2.6
+ * Author: Randy Hoyt, Eric Le Bail
+ * Author URI: http://randyhoyt.com/
  *
- * This plugin has been developped and tested with Wordpress Version 2.8
+ * This plugin has been developped and tested with Wordpress Version 3.3.1
  *
- * Copyright 2010  Eric Le Bail (email : eric_lebail@hotmail.com)
+ * Copyright 2012  Randy Hoyt (randyhoyt.com)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -51,7 +50,7 @@ global $wptm_version;
 global $wptm_db_version;
 global $wptm_table_name;
 global $wp_version;
-$wptm_version = '1.2.4';
+$wptm_version = '1.2.6';
 $wptm_db_version = '0.0.1';
 $wptm_table_name = $wpdb->prefix.'termsmeta';
 
@@ -196,7 +195,7 @@ function wptm_init() {
  *
  */
 function wptm_admin_enqueue_scripts( $hook ) {
-    if ($hook != 'edit-tags.php')
+    if ($hook != 'edit-tags.php' || !isset($_REQUEST["taxonomy"]))
         return;
 
     // chargement des styles
@@ -599,4 +598,5 @@ foreach($metaList as $inputName => $inputData)
 </div>
 <?php
 }
+
 ?>
